@@ -1,0 +1,5 @@
+/target
+**/*.rs.bk
+token.txt
+secret.txt
+
