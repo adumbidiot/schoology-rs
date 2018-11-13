@@ -6,8 +6,6 @@ extern crate serde_derive;
 extern crate rand;
 
 pub mod types;
-#[cfg(test)]
-mod tests;
 
 use std::time::{SystemTime, UNIX_EPOCH};
 use std::io::Read;
@@ -66,17 +64,16 @@ impl Api{
 			.map_err(|_|{
 				return ApiError::Fetch;
 			})?;
-			
-		if res.status != hyper::status::StatusCode::Ok{
-			return Err(ApiError::Fetch);
-		}
-		//println!("{:#?}", res.headers);
 		
 		let mut body = String::new();
 		res.read_to_string(&mut body).map_err(|_|{
 			return ApiError::Parse;
 		})?;
-		println!("{}", body);
+		
+		if res.status != hyper::status::StatusCode::Ok{
+			return Err(ApiError::StatusCode(res.status, body));
+		}
+		
 		return Ok(body);
 	}
 	
@@ -92,7 +89,7 @@ impl Api{
 		return Ok(group);
 	}
 	
-	pub fn get_groups(&self, start: u32, limit: u32) -> ApiResult<GroupList>{
+	pub fn get_groups(&self, start: usize, limit: usize) -> ApiResult<GroupList>{
 		let req = ApiRequest{
 			url: format!("https://api.schoology.com/v1/groups?start={}&limit={}", start, limit),
 		};
@@ -139,9 +136,9 @@ impl Api{
 		return Ok(groups);
 	}
 	
-	pub fn get_group_updates(&self, id: &str) -> ApiResult<UpdateList>{
+	pub fn get_group_updates(&self, id: &str, start: usize, limit: usize) -> ApiResult<UpdateList>{
 		let req = ApiRequest{
-			url: format!("https://api.schoology.com/v1/group/{}/updates?start={}&limit={}", id, 0, 3),
+			url: format!("https://api.schoology.com/v1/group/{}/updates?start={}&limit={}", id, start, limit),
 		};
 
 		let groups: UpdateList = serde_json::from_str(&self.send_request(req)?)
@@ -163,4 +160,5 @@ pub enum ApiError{
 	Fetch,
 	Parse,
 	JsonParse(serde_json::error::Error),
+	StatusCode(hyper::status::StatusCode, String),
 }
