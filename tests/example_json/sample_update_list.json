@@ -1,0 +1,38 @@
+{
+	"update": [{
+			"id": 1904820846,
+			"body": "We have another meeting on Monday, now with 20% more mandatory! So, be there.",
+			"uid": 6500751,
+			"created": 1541202516,
+			"likes": 0,
+			"user_like_action": false,
+			"realm": "group",
+			"group_id": 818498677,
+			"num_comments": 0
+		}, {
+			"id": 1898699704,
+			"body": "Remember, we have a meeting after school today! If you aren\u2019t able to make it, let me or Cooper know today. Thanks!",
+			"uid": 39336829,
+			"created": 1540570639,
+			"likes": 0,
+			"user_like_action": false,
+			"realm": "group",
+			"group_id": 818498677,
+			"num_comments": 0
+		}, {
+			"id": 1895989525,
+			"body": "Meeting Today at Plus\/Lunch.\u00a0 Anouncements were off, the meeting schedule is normal.",
+			"uid": 12880473,
+			"created": 1540323099,
+			"likes": 0,
+			"user_like_action": false,
+			"realm": "group",
+			"group_id": 818498677,
+			"num_comments": 0
+		}
+	],
+	"links": {
+		"self": "https:\/\/api.schoology.com\/v1\/group\/818498677\/updates?start=0&limit=3",
+		"next": "https:\/\/api.schoology.com\/v1\/group\/818498677\/updates?start=3&limit=3"
+	}
+}

@@ -1,0 +1,3 @@
+imports_layout = "vertical"
+merge_imports = true
+normalize_comments = true

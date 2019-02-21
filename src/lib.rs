@@ -5,160 +5,177 @@ extern crate serde;
 extern crate serde_derive;
 extern crate rand;
 
-pub mod types;
+pub mod client;
+pub mod realms;
 
-use std::time::{SystemTime, UNIX_EPOCH};
-use std::io::Read;
+pub use crate::client::Client;
+use crate::{
+    client::Request,
+    realms::{
+        Group,
+        GroupList,
+        User,
+        UserList,
+    },
+};
+use serde::de::DeserializeOwned;
+use serde_json::Value;
+use std::collections::HashMap;
 
-use rand::Rng;
+pub type SchoologyResult<T> = Result<T, SchoologyError>;
 
-use hyper::Client;
-use hyper::net::HttpsConnector;
-use hyper::header::Authorization;
-use hyper::header::Headers;
-
-use hyper_native_tls::NativeTlsClient;
-
-pub use self::types::*;
-
-fn get_nonce() -> String{
-	return rand::thread_rng()
-    .gen_ascii_chars()
-    .take(11)
-    .collect();
+#[derive(Debug)]
+pub enum SchoologyError {
+    Network,     // Add speceficity
+    InvalidBody, // Add specifics? Lossy unicode conversion instead?
+    InvalidStatusCode(u16),
+    InvalidJson(String), // TODO: More presice Error? Return Serde Error Directly?
+    UnauthorizedRequest, /* Use Invalid Status instead? This is more specific and probably more common? */
 }
 
-fn get_auth_header(token: &str, secret: &str) -> String{
-	let time = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs().to_string();
-	let nonce = get_nonce();
-	return format!(r#"OAuth realm="Schoology API", oauth_consumer_key="{}", oauth_token="", oauth_nonce="{}", oauth_timestamp="{}", oauth_signature_method="PLAINTEXT", oauth_version="1.0", oauth_signature="{}%26""#, token, nonce, time, secret);
+pub trait SchoologyRealm: DeserializeOwned {
+    fn get_url() -> &'static str;
+    fn get(id: &str) -> Request;
+    fn get_id(&self) -> &str;
 }
 
-pub struct Api{
-	token: String,
-	secret: String,
-	client: Client,
+pub trait SchoologyRealmList: DeserializeOwned {
+    fn get_many(start: usize, end: usize) -> Request;
 }
 
-impl Api{
-	pub fn new(token: String, secret: String) -> Self{
-		let ssl = NativeTlsClient::new().unwrap();
-		let connector = HttpsConnector::new(ssl);
-		let a = Api {
-			token: token, 
-			secret: secret,
-			client: Client::with_connector(connector),
-		};
-		return a;
-		
-	}
-	
-	pub fn send_request(&self, req: ApiRequest) -> ApiResult<String>{
-		let mut headers = Headers::new();
-		headers.set(Authorization(get_auth_header(&self.token, &self.secret)));
-		
-		let mut res = self.client
-			.get(&req.url)
-			.headers(headers)
-			.send()
-			.map_err(|_|{
-				return ApiError::Fetch;
-			})?;
-		
-		let mut body = String::new();
-		res.read_to_string(&mut body).map_err(|_|{
-			return ApiError::Parse;
-		})?;
-		
-		if res.status != hyper::status::StatusCode::Ok{
-			return Err(ApiError::StatusCode(res.status, body));
-		}
-		
-		return Ok(body);
-	}
-	
-	pub fn get_group(&self, id: &str) -> ApiResult<Group>{
-		let req = ApiRequest{
-			url: format!("https://api.schoology.com/v1/groups/{}", id),
-		};
-		
-		let group: Group = serde_json::from_str(&self.send_request(req)?)
-			.map_err(|_|{
-				return ApiError::Parse
-			})?;
-		return Ok(group);
-	}
-	
-	pub fn get_groups(&self, start: usize, limit: usize) -> ApiResult<GroupList>{
-		let req = ApiRequest{
-			url: format!("https://api.schoology.com/v1/groups?start={}&limit={}", start, limit),
-		};
-		
-		let groups: GroupList = serde_json::from_str(&self.send_request(req)?)
-			.map_err(|_|{
-				return ApiError::Parse
-			})?;
-		return Ok(groups);
-	}
-	
-	pub fn get_user(&self, id: &str) -> ApiResult<User>{
-		let req = ApiRequest{
-			url: format!("https://api.schoology.com/v1/users/{}", id),
-		};
-		let groups: User = serde_json::from_str(&self.send_request(req)?)
-			.map_err(|err|{
-				return ApiError::JsonParse(err);
-			})?;
-		return Ok(groups);
-	}
-	
-	pub fn get_users(&self, start: usize, limit: usize) -> ApiResult<UserList>{
-		let req = ApiRequest{
-			url: format!("https://api.schoology.com/v1/users?start={}&limit={}", start, limit),
-		};
-		let groups: UserList = serde_json::from_str(&self.send_request(req)?)
-			.map_err(|err|{
-				return ApiError::JsonParse(err);
-			})?;
-		return Ok(groups);
-	}
-	
-	pub fn get_group_update(&self, group_id: &str, id: &str) -> ApiResult<Update>{
-		let req = ApiRequest{
-			url: format!("https://api.schoology.com/v1/group/{}/updates/{}?start={}&limit={}", group_id, id, 0, 3),
-		};
-		let data = self.send_request(req)?;
-		println!("{}", &data);
-		let groups: Update = serde_json::from_str(&data)
-			.map_err(|err|{
-				return ApiError::JsonParse(err);
-			})?;
-		return Ok(groups);
-	}
-	
-	pub fn get_group_updates(&self, id: &str, start: usize, limit: usize) -> ApiResult<UpdateList>{
-		let req = ApiRequest{
-			url: format!("https://api.schoology.com/v1/group/{}/updates?start={}&limit={}", id, start, limit),
-		};
+pub trait SchoologyRealmObject: DeserializeOwned {
+    type Parent;
+    fn get(realm_id: &Self::Parent, id: &str) -> Request;
+}
 
-		let groups: UpdateList = serde_json::from_str(&self.send_request(req)?)
-			.map_err(|err|{
-				return ApiError::JsonParse(err);
-			})?;
-		return Ok(groups);
-	}
+pub trait SchoologyRealmObjectList: DeserializeOwned {
+    type Parent;
+    fn get_many(realm: &Self::Parent, start: usize, length: usize) -> Request;
+}
+
+#[derive(Deserialize, Debug)]
+pub struct Update {
+    pub id: u64,
+    pub body: String,
+    pub uid: u32,
+    pub created: u32,
+    pub likes: u32,
+    pub user_like_action: bool,
+    pub realm: String,
+    pub group_id: u32,
+    pub num_comments: u32,
+    #[serde(flatten)]
+    pub unknown: HashMap<String, Value>,
+}
+
+impl SchoologyRealmObject for Update {
+    type Parent = Group;
+    fn get(realm: &Self::Parent, id: &str) -> Request {
+        Request {
+            url: format!(
+                "https://api.schoology.com/v1/{}/{}/updates/{}",
+                Self::Parent::get_url(),
+                realm.get_id(),
+                id
+            )
+            .into(),
+        }
+    }
+}
+
+#[derive(Deserialize, Debug)]
+pub struct UpdateList {
+    pub update: Vec<Update>,
+}
+
+impl SchoologyRealmObjectList for UpdateList {
+    type Parent = Group;
+    fn get_many(realm: &Self::Parent, start: usize, end: usize) -> Request {
+        Request {
+            url: format!(
+                "https://api.schoology.com/v1/{}/{}/updates?start={}&limit={}",
+                Self::Parent::get_url(),
+                realm.get_id(),
+                start,
+                end
+            )
+            .into(),
+        }
+    }
+}
+
+pub struct Api {
+    client: Client,
+}
+
+impl Api {
+    pub fn new(token: String, secret: String) -> Self {
+        Api {
+            client: Client::new(token, secret),
+        }
+    }
+
+    pub fn get_group(&self, id: &str) -> ApiResult<Group> {
+        self.client.get_realm(id).map_err(|_| ApiError::Fetch)
+    }
+
+    pub fn get_groups(&self, start: usize, limit: usize) -> ApiResult<GroupList> {
+        self.client
+            .get_realms(start, limit)
+            .map_err(ApiError::SchoologyError)
+    }
+
+    pub fn get_user(&self, id: &str) -> ApiResult<User> {
+        self.client.get_realm(id).map_err(ApiError::SchoologyError)
+    }
+
+    pub fn get_users(&self, start: usize, limit: usize) -> ApiResult<UserList> {
+        self.client
+            .get_realms(start, limit)
+            .map_err(ApiError::SchoologyError)
+    }
+
+    pub fn get_group_update(&self, group_id: &str, id: &str) -> ApiResult<Update> {
+        let mut group = Group::default(); // TODO: Unpopulated flag, access vars through functions, update values function
+        group.id = group_id.to_string(); // TODO: Cow?
+        self.client
+            .get_realm_object(&group, id)
+            .map_err(ApiError::SchoologyError)
+    }
+
+    pub fn get_group_updates(
+        &self,
+        id: &str,
+        start: usize,
+        length: usize,
+    ) -> ApiResult<UpdateList> {
+        let mut group = Group::default();
+        group.id = id.to_string();
+        self.client
+            .get_realm_objects(&group, start, length)
+            .map_err(ApiError::SchoologyError)
+    }
 }
 
 type ApiResult<T> = Result<T, ApiError>;
 
-pub struct ApiRequest {
-	pub url: String
+struct ApiRequest {
+    pub url: String,
+}
+
+impl From<ApiRequest> for Request {
+    fn from(req: ApiRequest) -> Request {
+        Request {
+            url: req.url.into(),
+        }
+    }
 }
 
 #[derive(Debug)]
-pub enum ApiError{
-	Fetch,
-	Parse,
-	JsonParse(serde_json::error::Error),
-	StatusCode(hyper::status::StatusCode, String),
+pub enum ApiError {
+    Fetch,
+    Parse,
+    JsonParse(serde_json::error::Error),
+    StatusCode(hyper::status::StatusCode, String),
+    SchoologyError(SchoologyError),
 }

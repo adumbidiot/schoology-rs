@@ -1,0 +1,383 @@
+{
+	"group": [{
+			"id": "39355549",
+			"title": "RHS ed tech tuesday",
+			"description": "Rocklin High Ed Tech PLN",
+			"website": "",
+			"access_code": null,
+			"category": "",
+			"options": {
+				"member_post": 1,
+				"member_post_comment": 1,
+				"create_discussion": 1,
+				"create_files": 1,
+				"invite_type": 0
+			},
+			"group_code": "",
+			"privacy_level": "custom",
+			"picture_url": "https:\/\/api.schoology.com\/sites\/all\/themes\/schoology_theme\/images\/group-default.svg",
+			"school_id": "47301321",
+			"building_id": "9098109",
+			"links": {
+				"self": "https:\/\/api.schoology.com\/v1\/groups\/0"
+			}
+		}, {
+			"id": "41872347",
+			"title": "Rocklin High School Staff Development",
+			"description": "",
+			"website": "",
+			"access_code": null,
+			"category": "",
+			"options": {
+				"member_post": 1,
+				"member_post_comment": 1,
+				"create_discussion": 1,
+				"create_files": 1,
+				"invite_type": 0
+			},
+			"group_code": "",
+			"privacy_level": "custom",
+			"picture_url": "https:\/\/api.schoology.com\/sites\/all\/themes\/schoology_theme\/images\/group-default.svg",
+			"school_id": "47301321",
+			"building_id": "9098109",
+			"links": {
+				"self": "https:\/\/api.schoology.com\/v1\/groups\/1"
+			}
+		}, {
+			"id": "42116181",
+			"title": "RHS leadership team",
+			"description": "",
+			"website": "",
+			"access_code": null,
+			"category": "",
+			"options": {
+				"member_post": 1,
+				"member_post_comment": 1,
+				"create_discussion": 1,
+				"create_files": 1,
+				"invite_type": 0
+			},
+			"group_code": "",
+			"privacy_level": "custom",
+			"picture_url": "https:\/\/api.schoology.com\/sites\/all\/themes\/schoology_theme\/images\/group-default.svg",
+			"school_id": "47301321",
+			"building_id": "9098109",
+			"links": {
+				"self": "https:\/\/api.schoology.com\/v1\/groups\/2"
+			}
+		}, {
+			"id": "45561081",
+			"title": "French Club",
+			"description": "",
+			"website": "",
+			"access_code": null,
+			"category": "",
+			"options": {
+				"member_post": 1,
+				"member_post_comment": 1,
+				"create_discussion": 1,
+				"create_files": 1,
+				"invite_type": 0
+			},
+			"group_code": "",
+			"privacy_level": "custom",
+			"picture_url": "https:\/\/api.schoology.com\/sites\/all\/themes\/schoology_theme\/images\/group-default.svg",
+			"school_id": "47301321",
+			"building_id": "9098109",
+			"links": {
+				"self": "https:\/\/api.schoology.com\/v1\/groups\/3"
+			}
+		}, {
+			"id": "50030463",
+			"title": "AP World History",
+			"description": "Mr. O'Donnell's and Mrs. Kenitzer's APWH class group",
+			"website": "",
+			"access_code": null,
+			"category": "",
+			"options": {
+				"member_post": 1,
+				"member_post_comment": 1,
+				"create_discussion": 1,
+				"create_files": 1,
+				"invite_type": 0
+			},
+			"group_code": "",
+			"privacy_level": "custom",
+			"picture_url": "https:\/\/asset-cdn.schoology.com\/system\/files\/imagecache\/profile_reg\/grouplogos\/logo-50030463_5319bbc0ed8c8.jpg?1377130512",
+			"school_id": "47301321",
+			"building_id": "9098109",
+			"links": {
+				"self": "https:\/\/api.schoology.com\/v1\/groups\/4"
+			}
+		}, {
+			"id": "50176973",
+			"title": "RHS Key Club",
+			"description": "Rocklin High School Key Club",
+			"website": "",
+			"access_code": null,
+			"category": "",
+			"options": {
+				"member_post": 1,
+				"member_post_comment": 1,
+				"create_discussion": 1,
+				"create_files": 1,
+				"invite_type": 0
+			},
+			"group_code": "",
+			"privacy_level": "custom",
+			"picture_url": "https:\/\/api.schoology.com\/sites\/all\/themes\/schoology_theme\/images\/group-default.svg",
+			"school_id": "47301321",
+			"building_id": "9098109",
+			"links": {
+				"self": "https:\/\/api.schoology.com\/v1\/groups\/5"
+			}
+		}, {
+			"id": "50177153",
+			"title": "RHS Science Institute",
+			"description": "Mission:\nProvide the best possible support and education for students interested in a career in \nscience.",
+			"website": "",
+			"access_code": null,
+			"category": "",
+			"options": {
+				"member_post": 1,
+				"member_post_comment": 1,
+				"create_discussion": 1,
+				"create_files": 1,
+				"invite_type": 0
+			},
+			"group_code": "",
+			"privacy_level": "custom",
+			"picture_url": "https:\/\/api.schoology.com\/sites\/all\/themes\/schoology_theme\/images\/group-default.svg",
+			"school_id": "47301321",
+			"building_id": "9098109",
+			"links": {
+				"self": "https:\/\/api.schoology.com\/v1\/groups\/6"
+			}
+		}, {
+			"id": "50499117",
+			"title": "Spanish 2 ADVANCED",
+			"description": "Here you can ask questions or practice your Spanish",
+			"website": "",
+			"access_code": null,
+			"category": "",
+			"options": {
+				"member_post": 1,
+				"member_post_comment": 1,
+				"create_discussion": 1,
+				"create_files": 1,
+				"invite_type": 0
+			},
+			"group_code": "",
+			"privacy_level": "custom",
+			"picture_url": "https:\/\/api.schoology.com\/sites\/all\/themes\/schoology_theme\/images\/group-default.svg",
+			"school_id": "47301321",
+			"building_id": "9098109",
+			"links": {
+				"self": "https:\/\/api.schoology.com\/v1\/groups\/7"
+			}
+		}, {
+			"id": "50499361",
+			"title": "Spanish 1",
+			"description": "You can ask questions here or practice your Spanish.",
+			"website": "",
+			"access_code": null,
+			"category": "",
+			"options": {
+				"member_post": 1,
+				"member_post_comment": 1,
+				"create_discussion": 1,
+				"create_files": 1,
+				"invite_type": 0
+			},
+			"group_code": "",
+			"privacy_level": "custom",
+			"picture_url": "https:\/\/api.schoology.com\/sites\/all\/themes\/schoology_theme\/images\/group-default.svg",
+			"school_id": "47301321",
+			"building_id": "9098109",
+			"links": {
+				"self": "https:\/\/api.schoology.com\/v1\/groups\/8"
+			}
+		}, {
+			"id": "51887477",
+			"title": "Paul Transfer",
+			"description": "",
+			"website": "",
+			"access_code": null,
+			"category": "",
+			"options": {
+				"member_post": 1,
+				"member_post_comment": 1,
+				"create_discussion": 1,
+				"create_files": 1,
+				"invite_type": 0
+			},
+			"group_code": "",
+			"privacy_level": "custom",
+			"picture_url": "https:\/\/api.schoology.com\/sites\/all\/themes\/schoology_theme\/images\/group-default.svg",
+			"school_id": "47301321",
+			"building_id": "9098109",
+			"links": {
+				"self": "https:\/\/api.schoology.com\/v1\/groups\/9"
+			}
+		}, {
+			"id": "52624237",
+			"title": "Physics 1 - Morrison",
+			"description": "",
+			"website": "",
+			"access_code": null,
+			"category": "",
+			"options": {
+				"member_post": 1,
+				"member_post_comment": 1,
+				"create_discussion": 1,
+				"create_files": 1,
+				"invite_type": 0
+			},
+			"group_code": "",
+			"privacy_level": "custom",
+			"picture_url": "https:\/\/api.schoology.com\/sites\/all\/themes\/schoology_theme\/images\/group-default.svg",
+			"school_id": "47301321",
+			"building_id": "9098109",
+			"links": {
+				"self": "https:\/\/api.schoology.com\/v1\/groups\/10"
+			}
+		}, {
+			"id": "53042427",
+			"title": "FCCLA",
+			"description": "Members can find our program of work, calendar and other club info here and communicate with our advisor and officers",
+			"website": "",
+			"access_code": null,
+			"category": "",
+			"options": {
+				"member_post": 1,
+				"member_post_comment": 1,
+				"create_discussion": 1,
+				"create_files": 1,
+				"invite_type": 0
+			},
+			"group_code": "",
+			"privacy_level": "custom",
+			"picture_url": "https:\/\/api.schoology.com\/sites\/all\/themes\/schoology_theme\/images\/group-default.svg",
+			"school_id": "47301321",
+			"building_id": "9098109",
+			"links": {
+				"self": "https:\/\/api.schoology.com\/v1\/groups\/13"
+			}
+		}, {
+			"id": "53081373",
+			"title": "SDC Rocklin High",
+			"description": "Special Day Classes at RHS",
+			"website": "",
+			"access_code": null,
+			"category": "",
+			"options": {
+				"member_post": 1,
+				"member_post_comment": 1,
+				"create_discussion": 1,
+				"create_files": 1,
+				"invite_type": 0
+			},
+			"group_code": "",
+			"privacy_level": "custom",
+			"picture_url": "https:\/\/api.schoology.com\/sites\/all\/themes\/schoology_theme\/images\/group-default.svg",
+			"school_id": "47301321",
+			"building_id": "9098109",
+			"links": {
+				"self": "https:\/\/api.schoology.com\/v1\/groups\/15"
+			}
+		}, {
+			"id": "53081435",
+			"title": "Econ",
+			"description": "",
+			"website": "",
+			"access_code": null,
+			"category": "",
+			"options": {
+				"member_post": 1,
+				"member_post_comment": 1,
+				"create_discussion": 1,
+				"create_files": 1,
+				"invite_type": 0
+			},
+			"group_code": "",
+			"privacy_level": "custom",
+			"picture_url": "https:\/\/api.schoology.com\/sites\/all\/themes\/schoology_theme\/images\/group-default.svg",
+			"school_id": "47301321",
+			"building_id": "9098109",
+			"links": {
+				"self": "https:\/\/api.schoology.com\/v1\/groups\/16"
+			}
+		}, {
+			"id": "53081539",
+			"title": "Government",
+			"description": "",
+			"website": "",
+			"access_code": null,
+			"category": "",
+			"options": {
+				"member_post": 1,
+				"member_post_comment": 1,
+				"create_discussion": 1,
+				"create_files": 1,
+				"invite_type": 0
+			},
+			"group_code": "",
+			"privacy_level": "custom",
+			"picture_url": "https:\/\/api.schoology.com\/sites\/all\/themes\/schoology_theme\/images\/group-default.svg",
+			"school_id": "47301321",
+			"building_id": "9098109",
+			"links": {
+				"self": "https:\/\/api.schoology.com\/v1\/groups\/17"
+			}
+		}, {
+			"id": "53085115",
+			"title": "Girls Golf",
+			"description": "",
+			"website": "",
+			"access_code": null,
+			"category": "",
+			"options": {
+				"member_post": 1,
+				"member_post_comment": 1,
+				"create_discussion": 1,
+				"create_files": 1,
+				"invite_type": 0
+			},
+			"group_code": "",
+			"privacy_level": "custom",
+			"picture_url": "https:\/\/api.schoology.com\/sites\/all\/themes\/schoology_theme\/images\/group-default.svg",
+			"school_id": "47301321",
+			"building_id": "9098109",
+			"links": {
+				"self": "https:\/\/api.schoology.com\/v1\/groups\/18"
+			}
+		}, {
+			"id": "53088599",
+			"title": "Econ\/Gov Teachers",
+			"description": "",
+			"website": "",
+			"access_code": null,
+			"category": "",
+			"options": {
+				"member_post": 1,
+				"member_post_comment": 1,
+				"create_discussion": 1,
+				"create_files": 1,
+				"invite_type": 0
+			},
+			"group_code": "",
+			"privacy_level": "custom",
+			"picture_url": "https:\/\/api.schoology.com\/sites\/all\/themes\/schoology_theme\/images\/group-default.svg",
+			"school_id": "47301321",
+			"building_id": "9098109",
+			"links": {
+				"self": "https:\/\/api.schoology.com\/v1\/groups\/19"
+			}
+		}
+	],
+	"total": 155,
+	"links": {
+		"self": "https:\/\/api.schoology.com\/v1\/groups?start=0&limit=20",
+		"next": "https:\/\/api.schoology.com\/v1\/groups?start=20&limit=20"
+	}
+}
