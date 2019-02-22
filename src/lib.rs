@@ -21,6 +21,7 @@ use crate::{
 use serde::de::DeserializeOwned;
 use serde_json::Value;
 use std::collections::HashMap;
+ use std::borrow::Cow;
 
 pub type SchoologyResult<T> = Result<T, SchoologyError>;
 
@@ -36,7 +37,7 @@ pub enum SchoologyError {
 pub trait SchoologyRealm: DeserializeOwned {
     fn get_url() -> &'static str;
     fn get(id: &str) -> Request;
-    fn get_id(&self) -> &str;
+    fn get_id(&self) -> Cow<str>;
 }
 
 pub trait SchoologyRealmList: DeserializeOwned {
@@ -86,6 +87,8 @@ impl SchoologyRealmObject for Update {
 #[derive(Deserialize, Debug)]
 pub struct UpdateList {
     pub update: Vec<Update>,
+	#[serde(flatten)]
+    pub unknown: HashMap<String, Value>,
 }
 
 impl SchoologyRealmObjectList for UpdateList {
@@ -116,7 +119,7 @@ impl Api {
     }
 
     pub fn get_group(&self, id: &str) -> ApiResult<Group> {
-        self.client.get_realm(id).map_err(|_| ApiError::Fetch)
+        self.client.get_realm(id).map_err(ApiError::SchoologyError)
     }
 
     pub fn get_groups(&self, start: usize, limit: usize) -> ApiResult<GroupList> {
@@ -159,23 +162,7 @@ impl Api {
 
 type ApiResult<T> = Result<T, ApiError>;
 
-struct ApiRequest {
-    pub url: String,
-}
-
-impl From<ApiRequest> for Request {
-    fn from(req: ApiRequest) -> Request {
-        Request {
-            url: req.url.into(),
-        }
-    }
-}
-
 #[derive(Debug)]
 pub enum ApiError {
-    Fetch,
-    Parse,
-    JsonParse(serde_json::error::Error),
-    StatusCode(hyper::status::StatusCode, String),
     SchoologyError(SchoologyError),
 }

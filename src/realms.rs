@@ -5,6 +5,7 @@ use crate::{
 };
 use serde_json::Value;
 use std::collections::HashMap;
+use std::borrow::Cow;
 
 #[derive(Deserialize, Debug, Default)]
 pub struct Group {
@@ -35,15 +36,15 @@ impl SchoologyRealm for Group {
         }
     }
 
-    fn get_id(&self) -> &str {
-        &self.id
+    fn get_id(&self) -> Cow<str> {
+        (&self.id).into()
     }
 }
 
 #[derive(Deserialize, Debug, Default)]
 pub struct User {
     pub uid: String,
-    pub id: String,
+    pub id: u64,
     pub name_title: String,
     pub name_title_show: u32,
     pub name_first: String,
@@ -83,15 +84,15 @@ impl SchoologyRealm for User {
         }
     }
 
-    fn get_id(&self) -> &str {
-        &self.id
+    fn get_id(&self) -> Cow<str> {
+        self.id.to_string().into()
     }
 }
 
 #[derive(Deserialize, Debug)]
 pub struct UserList {
     pub user: Vec<User>,
-    pub total: u32,
+    pub total: String,
     #[serde(flatten)]
     pub unknown: HashMap<String, Value>,
 }

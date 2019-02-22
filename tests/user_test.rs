@@ -28,7 +28,7 @@ fn unauthorized_access() {
 #[test]
 pub fn list_users() {
     let api = get_api();
-    let users = api.get_users(0, 3).unwrap();
+    let users = api.get_users(0, 10).unwrap();
     println!("{:#?}", users);
     assert!(users.user.len() > 0);
 }
