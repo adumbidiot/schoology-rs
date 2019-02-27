@@ -74,7 +74,7 @@ impl Client {
         let mut body = String::new();
         res.read_to_string(&mut body)
             .map_err(|_| SchoologyError::InvalidBody)?;
-        //println!("{}", body);
+        // println!("{}", body);
         Ok(body)
     }
 

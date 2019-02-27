@@ -1,7 +1,12 @@
 extern crate schoology;
 
 mod common;
-use self::common::get_api;
+
+use self::common::{
+    get_api,
+    get_client,
+};
+use schoology::realms::User;
 
 #[test]
 fn get_user() {
@@ -31,4 +36,11 @@ pub fn list_users() {
     let users = api.get_users(0, 10).unwrap();
     println!("{:#?}", users);
     assert!(users.user.len() > 0);
+}
+
+#[test]
+pub fn user_thanos() {
+    let client = get_client();
+    let user: User = client.get_realm("82444544").unwrap();
+    println!("{:#?}", user);
 }

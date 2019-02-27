@@ -20,8 +20,10 @@ use crate::{
 };
 use serde::de::DeserializeOwned;
 use serde_json::Value;
-use std::collections::HashMap;
- use std::borrow::Cow;
+use std::{
+    borrow::Cow,
+    collections::HashMap,
+};
 
 pub type SchoologyResult<T> = Result<T, SchoologyError>;
 
@@ -87,7 +89,7 @@ impl SchoologyRealmObject for Update {
 #[derive(Deserialize, Debug)]
 pub struct UpdateList {
     pub update: Vec<Update>,
-	#[serde(flatten)]
+    #[serde(flatten)]
     pub unknown: HashMap<String, Value>,
 }
 

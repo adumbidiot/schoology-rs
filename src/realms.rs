@@ -4,8 +4,10 @@ use crate::{
     SchoologyRealmList,
 };
 use serde_json::Value;
-use std::collections::HashMap;
-use std::borrow::Cow;
+use std::{
+    borrow::Cow,
+    collections::HashMap,
+};
 
 #[derive(Deserialize, Debug, Default)]
 pub struct Group {
@@ -64,6 +66,7 @@ pub struct User {
     pub school_id: Option<u64>,
     pub send_message: Option<u32>,
     pub synced: Option<u32>,
+
     #[serde(flatten)]
     pub unknown: HashMap<String, Value>,
 }
@@ -126,5 +129,46 @@ impl SchoologyRealmList for GroupList {
             )
             .into(),
         }
+    }
+}
+
+#[derive(Deserialize, Debug)]
+pub struct School {
+    id: String,
+    country: String,
+    address1: String,
+    address2: String,
+    fax: String,
+    city: String,
+    postal_code: String,
+    building_code: String,
+    website: String,
+    title: String,
+    picture_url: String,
+    state: String,
+    phone: String,
+
+    #[serde(flatten)]
+    unknown: HashMap<String, Value>,
+}
+
+impl SchoologyRealm for School {
+    fn get_url() -> &'static str {
+        "schools"
+    }
+
+    fn get(id: &str) -> Request {
+        Request {
+            url: format!(
+                "https://api.schoology.com/v1/{}/{}?extended=true",
+                Self::get_url(),
+                id
+            )
+            .into(),
+        }
+    }
+
+    fn get_id(&self) -> Cow<str> {
+        self.id.to_string().into()
     }
 }
