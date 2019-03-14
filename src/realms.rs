@@ -9,7 +9,7 @@ use std::{
     collections::HashMap,
 };
 
-#[derive(Deserialize, Debug, Default)]
+#[derive(Serialize, Deserialize, Debug, Default)]
 pub struct Group {
     pub id: String,
     pub title: String,
@@ -43,7 +43,7 @@ impl SchoologyRealm for Group {
     }
 }
 
-#[derive(Deserialize, Debug, Default)]
+#[derive(Serialize, Deserialize, Debug, Default)]
 pub struct User {
     pub uid: String,
     pub id: u64,
@@ -92,7 +92,7 @@ impl SchoologyRealm for User {
     }
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct UserList {
     pub user: Vec<User>,
     pub total: String,
@@ -112,7 +112,7 @@ impl SchoologyRealmList for UserList {
     }
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct GroupList {
     pub group: Vec<Group>,
     pub total: u32,
@@ -132,7 +132,7 @@ impl SchoologyRealmList for GroupList {
     }
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct School {
     id: String,
     country: String,
